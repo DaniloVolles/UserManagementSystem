@@ -1,15 +1,18 @@
 package br.com.danilovolles.usermanagementsystem.entity.user;
 
+import br.com.danilovolles.usermanagementsystem.dto.UserDataDTO;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
-import java.util.UUID;
 
+@Data
 @Entity
+@Table(name = "db_usersData")
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -24,7 +27,8 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     private Date birthDate;
 
@@ -33,9 +37,26 @@ public class User {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private String status = String.valueOf(Status.ACTIVE);
+    private Status status = Status.valueOf(String.valueOf(Status.ACTIVE));
 
     private String address;
     
     private String phone;
+
+    public User(UserDataDTO userData) {
+        this.name = userData.getName();
+        this.username = userData.getUsername();
+        this.email = userData.getEmail();
+        this.password = userData.getPassword();
+        this.role = userData.getRole();
+        this.birthDate = userData.getBirthDate();
+        this.creationDate = userData.getCreationDate();
+        this.status = userData.getStatus();
+        this.address = userData.getAddress();
+        this.phone = userData.getPhone();
+    }
+
+    public User() {
+
+    }
 }
