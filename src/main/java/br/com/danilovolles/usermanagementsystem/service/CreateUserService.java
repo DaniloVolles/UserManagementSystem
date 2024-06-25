@@ -1,6 +1,6 @@
 package br.com.danilovolles.usermanagementsystem.service;
 
-import br.com.danilovolles.usermanagementsystem.dto.UserDataDTO;
+import br.com.danilovolles.usermanagementsystem.dto.UserDTO;
 import br.com.danilovolles.usermanagementsystem.entity.user.User;
 import br.com.danilovolles.usermanagementsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class CreateUserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<UserDataDTO> execute(UserDataDTO userData){
+    public Optional<UserDTO> execute(UserDTO userData){
         User user = new User(userData);
         userRepository.saveAndFlush(user);
         return Optional.of(userData);

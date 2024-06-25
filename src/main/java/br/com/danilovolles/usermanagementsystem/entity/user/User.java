@@ -1,6 +1,6 @@
 package br.com.danilovolles.usermanagementsystem.entity.user;
 
-import br.com.danilovolles.usermanagementsystem.dto.UserDataDTO;
+import br.com.danilovolles.usermanagementsystem.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -43,7 +43,7 @@ public class User {
     
     private String phone;
 
-    public User(UserDataDTO userData) {
+    public User(UserDTO userData) {
         this.name = userData.getName();
         this.username = userData.getUsername();
         this.email = userData.getEmail();
