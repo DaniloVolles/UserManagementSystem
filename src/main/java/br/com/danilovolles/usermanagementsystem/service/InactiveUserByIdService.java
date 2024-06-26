@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class InactiveUserByIdService {
@@ -14,7 +15,7 @@ public class InactiveUserByIdService {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean execute(Long id) {
+    public boolean execute(UUID id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             user.get().setStatus(Status.INACTIVE);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class GetUserByIdService {
@@ -17,7 +18,7 @@ public class GetUserByIdService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Optional<UserDTO> execute(Long id){
+    public Optional<UserDTO> execute(UUID id){
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             return Optional.of(modelMapper.map(user.get(), UserDTO.class));

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable UUID id) {
         Optional<UserDTO> userData = getUserByIdService.execute(id);
         if (userData.isPresent()) {
             return ResponseEntity.ok(userData.get());
@@ -46,7 +47,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO data) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable UUID id, @RequestBody UserDTO data) {
         Optional<UserDTO> userData = this.updateUserByIdService.execute(id, data);
         if (userData.isPresent()) {
             return ResponseEntity.ok(userData.get());
@@ -55,7 +56,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> inactiveUser(@PathVariable Long id) {
+    public ResponseEntity<Void> inactiveUser(@PathVariable UUID id) {
         boolean inactive = this.inactiveUserByIdService.execute(id);
         if (inactive) {
             return new ResponseEntity<>(HttpStatus.OK);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UpdateUserByIdService {
@@ -21,7 +22,7 @@ public class UpdateUserByIdService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<UserDTO> execute(Long id, UserDTO userData){
+    public Optional<UserDTO> execute(UUID id, UserDTO userData){
 
         Optional<User> user = userRepository.findById(id);
 
