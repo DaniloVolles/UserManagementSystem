@@ -6,6 +6,7 @@ import br.com.danilovolles.usermanagementsystem.repository.UserRepository;
 import br.com.danilovolles.usermanagementsystem.service.CreateUserService;
 import br.com.danilovolles.usermanagementsystem.service.GetAllUsersService;
 import br.com.danilovolles.usermanagementsystem.service.GetUserByIdService;
+import br.com.danilovolles.usermanagementsystem.service.UpdateUserById;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,15 @@ public class UserController {
 
     @Autowired
     private CreateUserService createUserService;
+
     @Autowired
     private GetAllUsersService getAllUsersService;
+
     @Autowired
     private GetUserByIdService getUserByIdService;
+
+    @Autowired
+    private UpdateUserById updateUserById;
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO data) {
@@ -40,7 +46,20 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<UserDTO>> getUserById(@PathVariable Long id){
-        return ResponseEntity.ok(getUserByIdService.execute(id));
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        Optional<UserDTO> userData = getUserByIdService.execute(id);
+        if (userData.isPresent()) {
+            return ResponseEntity.ok(userData.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO data) {
+        Optional<UserDTO> userData = this.updateUserById.execute(id, data);
+        if (userData.isPresent()) {
+            return ResponseEntity.ok(userData.get());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
