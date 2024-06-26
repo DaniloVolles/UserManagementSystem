@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class UpdateUserById {
+public class UpdateUserByIdService {
 
     @Autowired
     private ModelMapper modelMapper;
